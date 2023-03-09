@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ant-design-vue": "^3.2.15",
     "firebase": "^9.17.1",
     "nanoid": "^4.0.1",
     "pinia": "^2.0.32",
+    "unplugin-vue-components": "^0.24.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },

@@ -22,20 +22,24 @@ const routes = [
     {
         path: '/',
         component: Home,
-        beforeEnter: requireAuth
+        beforeEnter: requireAuth,
+        name: 'home'
     },
     {
         path: '/editar/:id',
         component: Editar,
-        beforeEnter: requireAuth
+        beforeEnter: requireAuth,
+        name: 'editar'
     },
     {
         path: '/login',
-        component: Login
+        component: Login,
+        name: 'login'
     },
     {
         path: '/register',
-        component: Register
+        component: Register,
+        name: 'register'
     }
 ];
 
