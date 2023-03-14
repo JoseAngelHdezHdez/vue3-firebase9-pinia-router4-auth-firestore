@@ -52,8 +52,8 @@ const formState = reactive({
     password: ''
 });
 
-const onFinish = async (value) => {
-    console.log('Success: ', value)
+const onFinish = async () => {
+    // console.log('Success: ', value)
     const result = await userStore.loginUser(formState.email, formState.password)
 
     if (!result) {
@@ -61,7 +61,10 @@ const onFinish = async (value) => {
     }
 
     switch (result) {
-        case "auth/user-not-found" || "auth/wrong-password":
+        case "auth/user-not-found":
+            message.error('El usuario o la contraseña estan mal')
+            break;
+        case "auth/wrong-password":
             message.error('El usuario o la contraseña estan mal')
             break;
         default:

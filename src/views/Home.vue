@@ -12,9 +12,17 @@
                 <template #extra>
                     <a-space>
                         <a-popconfirm title="¿Estas seguro de eliminarlo?" ok-text="Si" cancel-text="No" @confirm="confirm(data.id)" @cancel="cancel">
-                            <a-button danger :loading="databaseStore.loading" :disabled="databaseStore.loading">Eliminar</a-button>
+                            <a-button danger :loading="databaseStore.loading" :disabled="databaseStore.loading" shape="circle">
+                                <template #icon>
+                                    <DeleteOutlined/>
+                                </template>
+                            </a-button>
                         </a-popconfirm>
-                        <a-button type="primary" ghost @click="router.push(`/editar/${data.id}`)">Editar</a-button>
+                        <a-button type="primary" ghost @click="router.push(`/editar/${data.id}`)" shape="circle">
+                            <template #icon>
+                                <EditOutlined/>
+                            </template>
+                        </a-button>
                     </a-space>
                 </template>
                 <p>{{ data.name }}</p>
@@ -28,6 +36,7 @@ import { useUserStore } from '../stores/user';
 import { useDatabaseStore } from '../stores/database';
 import { useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
 
 const userStore = useUserStore();
 const databaseStore = useDatabaseStore();
