@@ -49,26 +49,20 @@ export const useUserStore = defineStore('userStore', {
                 console.log(error);
             }
         },
-        async updateImg(image){
+        async updateUser(displayName, image){
             try {
-                console.log(image);
-                const storageRef = ref(storage, `${this.userData.uid}/perfil`);
-                await uploadBytes(storageRef, image.originFileObj);
-                const photoURL =  await getDownloadURL(storageRef);
-                // console.log(urlImage )
-                await updateProfile(auth.currentUser, {
-                    photoURL,
-               }); 
-               this.setUser(auth.currentUser)
-            } catch (error) {
-                console.log(error.code);
-                return error.code
-            } finally {
+                if (image) {
+                    this.loadingUser = true;
+                    // console.log(image);
+                    const storageRef = ref(storage, `perfiles/${this.userData.uid}`);
+                    await uploadBytes(storageRef, image.originFileObj);
+                    const photoURL =  await getDownloadURL(storageRef);
+                    // console.log(photoURL)
+                    await updateProfile(auth.currentUser, {
+                        photoURL,
+                   }); 
+                }
 
-            }
-        },
-        async updateUser(displayName){
-            try {
                 await updateProfile(auth.currentUser, {
                      displayName,
                 });
@@ -77,7 +71,7 @@ export const useUserStore = defineStore('userStore', {
                 console.log(error.code);
                 return error.code
             } finally {
-
+                this.loadingUser = false;
             }
         },
         async loginUser(email, password) {
@@ -98,8 +92,9 @@ export const useUserStore = defineStore('userStore', {
             databaseStore.$reset();
             try {
                 this.loadingUser = true;
-                router.push('/login');
                 await signOut(auth);
+                this.userData = '';
+                router.push('/login');
             } catch (error) {
                 console.log(error);
                 return error.code;

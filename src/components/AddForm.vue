@@ -2,7 +2,7 @@
     <a-form name="addForm" autocomplete="off" layout="vertical" :model="formState" @finish="onFinish">
         <!-- Expresiones regulares -->
         <a-form-item name="url" label="Ingrese una url"
-            :rules="[{ required: true, whitespace: true, pattern: /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/, message: 'Ingresa una url válido' }]">
+            :rules="[{ required: true, whitespace: true, pattern: /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/, message: 'Ingresa una url válida' }]">
             <a-input v-model:value="formState.url" placeholder="https://antdv.com/components/icon" enter-button>
                 <template #prefix>
                     <ChromeOutlined/>

@@ -2,7 +2,7 @@
     <h1 class="text-center">Mi Perfil</h1>
     <!-- <p>{{ userStore.userData }}</p> -->
     <div class="text-center">
-        <a-avatar :src="userStore.userData.photoURL" :size="150"></a-avatar>
+        <a-avatar :src="userStore.userData.photoUrl" :size="150"></a-avatar>
     </div>
     <a-row>
         <a-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }">
@@ -63,7 +63,6 @@ const handleRemove = file => {
 };
 
 const handleChange = info => {
-
     //valida tipos de imagenes
     if (info.file.status !== 'uploading') {
         // console.log(info.file)
@@ -80,12 +79,12 @@ const handleChange = info => {
             return;
         }
     }
-
+    
     //Se valida que sea una imagen pero la remplaza
     let resFileList = [...info.fileList];
-
+    
     resFileList = resFileList.slice(-1);
-
+    
     resFileList = resFileList.map(file => {
         if (file.response) {
             file.url = file.response.url;
@@ -96,19 +95,10 @@ const handleChange = info => {
 };
 
 const onFinish = async () => {
-    const result = await userStore.updateUser(userStore.userData.displayName);
-
-    if (fileList.value[0]) {
-        const result = await userStore.updateImg(fileList.value[0]);
-
-        if (result) {
-            return message.error('Problemas al subir la imagen');
-        }
-
-        message.success('Se actualizo la imagen')
-    }
-
+    const result = await userStore.updateUser(userStore.userData.displayName, fileList.value[0]);
+    
     if (!result) {
+        console.log(userStore.userData.photoURL)
         return message.success('Se actualizo tu informacion');
     }
     message.error('Ocuerrio un error')

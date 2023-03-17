@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Home</h1>
+        <h1 class="text-center">Home</h1>
         <p>{{ userStore.userData?.email }}</p>
 
         <add-form></add-form>
@@ -23,6 +23,11 @@
                                 <EditOutlined/>
                             </template>
                         </a-button>
+                        <a-button @click="copiarPortapeles(data.id)" shape="circle">
+                            <template #icon>
+                                <CopyOutlined/>
+                            </template>
+                        </a-button>
                     </a-space>
                 </template>
                 <p>{{ data.name }}</p>
@@ -36,7 +41,7 @@ import { useUserStore } from '../stores/user';
 import { useDatabaseStore } from '../stores/database';
 import { useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons-vue';
+import { DeleteOutlined, EditOutlined, CopyOutlined } from '@ant-design/icons-vue';
 
 const userStore = useUserStore();
 const databaseStore = useDatabaseStore();
@@ -56,4 +61,29 @@ const confirm = async(id) => {
 const cancel = () => {
     message.error('No se elimino');
 };
+
+const copiarPortapeles = async (id) => {
+    if (!navigator.clipboard) {
+        return message.error('No tiene portapapeles');
+    }
+
+    const path = `${window.location.origin}/${id}` 
+
+    const err = await navigator.clipboard.writeText(path);
+
+    if (err) {
+        message.error("Ocurrio un error");
+    } else {
+        message.success("Url copiada");    
+    }
+
+    // navigator.clipboard.writeText(path)
+    //     .then(() => {
+    //         message.success("Url copiada");
+    //     })
+    //     .catch((err) => {
+    //         message.error("Ocurrio un error");
+    //     });
+    
+}
 </script>

@@ -33,7 +33,7 @@ const formState = reactive({
     url: ''
 })
 
-const onFinish = async (value) => {
+const onFinish = async () => {
     const result = await databaseStore.updateUrl(route.params.id, formState.url);
 
     if (!result) {
